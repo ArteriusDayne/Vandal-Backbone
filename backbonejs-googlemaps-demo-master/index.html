@@ -46,26 +46,6 @@
             <h1 class="wow fadeIn" data-wow-delay='0.4s'>Vandal</h1>
         </div>
 
-
-        <!-- Adding companies and shit
-        <div id="hub" class="">
-            <div class="nav_controls" id="map_controls">
-                <button id="btn_content" class="btn btn-large btn-warning">Show content</button>
-            </div>
-
-            <div id="companies_holder">
-                <button id="btn_pop_new_company" class="btn"><i class="icon-plus"></i> New company</button>
-                <button id="btn_delete_all_companies" class="btn btn-danger"><i class="icon-remove icon-white"></i> Remove them all</button>
-
-                <div id="companies_list_holder"><ul></ul></div>
-            </div>
-
-            <div class="nav_controls" id="content_controls">
-                <button id="btn_map" class="btn btn-large btn-warning">Show map</button>
-            </div>
-
-        </div> -->
-
         <!-- Right Panel -->
 
         <div data-role="popup" id="popupDialog">
@@ -75,7 +55,7 @@
 
             <div data-role="content">
                 <fieldset>
-                    <legend>Radio Buttons</legend>
+                    <legend>Choose Map Layout</legend>
                     <input type="radio" name="radio-choice-1" id="radio-choice-1b" value="choice-1" checked="checked">
                     <label for="radio-choice-1b">Roadmap</label>
                     <input type="radio" name="radio-choice-1" id="radio-choice-2b" value="choice-2">
@@ -186,6 +166,25 @@
 
         </div>  
         <!-- Left Panel -->
+
+        <!--
+        <div id="hub" class="">
+            <div class="nav_controls" id="map_controls">
+                <button id="btn_content" class="btn btn-large btn-warning">Show content</button>
+            </div>
+
+            <div id="crimes_holder">
+                <button id="btn_pop_new_crime" class="btn"><i class="icon-plus"></i> New Crime</button>
+                <button id="btn_delete_all_crime" class="btn btn-danger"><i class="icon-remove icon-white"></i> Remove them all</button>
+
+                <div id="crimes_list_holder"><ul></ul></div>
+            </div>
+
+            <div class="nav_controls" id="content_controls">
+                <button id="btn_map" class="btn btn-large btn-warning">Show map</button>
+            </div>
+
+        </div> -->
 
 
         <!-- Pop-up Menu Forms -->
@@ -311,11 +310,11 @@
         <script src="app/vendor/geolocationmarker-compiled.js"></script>
 
         <!-- App Libraries -->
-        <script src="app/models/company.js"></script>
-        <script src="app/collections/company.js"></script>
-        <script src="app/views/company_list_item_view.js"></script>
-        <script src="app/views/company_list_view.js"></script>
-        <script src="app/views/company_marker_view.js"></script>
+        <script src="app/models/crime.js"></script>
+        <script src="app/collections/crime.js"></script>
+        <script src="app/views/crime_list_item_view.js"></script>
+        <script src="app/views/crime_list_view.js"></script>
+        <script src="app/views/crime_marker_view.js"></script>
 
         <script src="app/app.js"></script>
 

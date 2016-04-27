@@ -1,10 +1,10 @@
 
 /**
- * Company Marker View
- * The DOM element for a company marker.
+ * Crime Marker View
+ * The DOM element for a crime marker.
  */
 
-var CompanyMarkerView = Backbone.View.extend({
+var CrimeMarkerView = Backbone.View.extend({
 
     tagName:  "li",
 
@@ -26,32 +26,32 @@ var CompanyMarkerView = Backbone.View.extend({
           icon : 'img/buildings_32x32.png',
           title: self.model.name,
           descr : self.model.get('descr'),
-          id : self.model.get('company_id')
+          id : self.model.get('crime_id')
       });
 
       self.marker.infowindow = new google.maps.InfoWindow({
         content: self.marker.descr
       });
 
-      google.maps.event.addListener(self.marker, 'mouseover', self.show_company_info);
-      google.maps.event.addListener(self.marker, 'mouseout', self.hide_company_info);
-      google.maps.event.addListener(self.marker, 'click', self.show_company_detail);
+      google.maps.event.addListener(self.marker, 'mouseover', self.show_crime_info);
+      google.maps.event.addListener(self.marker, 'mouseout', self.hide_crime_info);
+      google.maps.event.addListener(self.marker, 'click', self.show_crime_detail);
     },
 
     //---------------------------------------
     // Event handlers for marker events
 
-    show_company_detail : function() {
+    show_crime_detail : function() {
       this.infowindow.close();
       App.show_content();
     },
 
-    hide_company_info : function() {
+    hide_crime_info : function() {
       this.setIcon('img/buildings_32x32.png');
       this.infowindow.close();
     },
 
-    show_company_info : function() {
+    show_crime_info : function() {
       this.setIcon('img/buildings_32x32_selected.png');
       this.infowindow.open(this.map, this);
     },

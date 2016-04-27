@@ -1,24 +1,24 @@
 
 /**
- * Company Collection
+ * Crime Collection
  * The collection of companies is backed by *localStorage* instead of a remote
  * server.
  */
 
-var CompanyList = Backbone.Collection.extend({
+var CrimeList = Backbone.Collection.extend({
 
   // reference to this collection's model.
-  model: Company,
+  model: Crime,
 
   localStorage: new Store("company-cachirulo"),
 
-  add_new: function(company) {
-    this.create(company);
+  add_new: function(crime) {
+    this.create(crime);
   },
 
   // companies are sorted by their name
-  comparator: function(company) {
-    return company.get('name');
+  comparator: function(crime) {
+    return crime.get('name');
   },
 
   remove_all: function() {

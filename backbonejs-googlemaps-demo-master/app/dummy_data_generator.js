@@ -2,22 +2,22 @@
 var dummy_data_generator = {
 
   'reset' : function() {
-    Companies.remove_all();
+    Crimes.remove_all();
   },
 
-  'get_dummy_company': function() {
+  'get_dummy_crime': function() {
     var rnd_id = (new Date).getTime();
-    var company = {
-      company_id : rnd_id,
+    var crime = {
+      crime_id : rnd_id,
       name : Faker.Company.companyName(),
       address: Faker.Address.streetAddress(),
-      pos: {lat: 41 + Math.random(), lon: -1.3 + Math.random()}
+      pos: {lat: 40.742 + Math.random(), lon: -74.179 + Math.random()}
     };
 
-    company.descr = '<div>'+
+    crime.descr = '<div>'+
     '<div>'+
     '</div>'+
-    '<h2>' + company.name + ' <small>' + company.address +  '</small></h2>'+
+    '<h2>' + crime.name + ' <small>' + crime.address +  '</small></h2>'+
     '<div>'+
     '<img style="width:200px;height:200px;float:left;margin:5px 10px 5px 0px" src="http://lorempixel.com/200/200/" />' +
     '<p>' + Faker.Lorem.paragraph() + '</p>' +
@@ -26,13 +26,13 @@ var dummy_data_generator = {
     '</div>'+
     '</div>';
 
-    return company;
+    return crime;
   },
 
   'repopulate' : function() {
-    Companies.remove_all();
+    Crimes.remove_all();
     for (var i = 0, l = 10; i < l ;  i++) {
-      Companies.add_new(this.get_dummy_company());
+      Crimes.add_new(this.get_dummy_crime());
     }
   }
 };

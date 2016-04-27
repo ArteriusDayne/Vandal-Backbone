@@ -4,7 +4,7 @@
  * The DOM element for an item in a list of company items.
  */
 
-var CompanyListItemView = Backbone.View.extend({
+var CrimeListItemView = Backbone.View.extend({
 
   initialize: function(options) {
     this.marker_view = options.marker_view; //retain instance of google marker
@@ -16,34 +16,34 @@ var CompanyListItemView = Backbone.View.extend({
   // Events and event handlers
 
   events: {
-    'mouseover a': 'show_company_info',
-    'mouseout a': 'hide_company_info',
-    'click button': 'ask_delete_company',
-    'click a.delete': 'delete_company',
-    'click a.detail': 'show_company_detail'
+    'mouseover a': 'show_crime_info',
+    'mouseout a': 'hide_crime_info',
+    'click button': 'ask_delete_crime',
+    'click a.delete': 'delete_crime',
+    'click a.detail': 'show_crime_detail'
   },
 
-  show_company_detail : function() {
+  show_crime_detail : function() {
     App.show_content();
   },
 
   // show marker bubble
-  show_company_info : function() {
-    this.marker_view.show_company_info.call(this.marker_view.marker);
+  show_crime_info : function() {
+    this.marker_view.show_crime_info.call(this.marker_view.marker);
   },
 
   // hide marker bubble
-  hide_company_info : function() {
-    this.marker_view.hide_company_info.call(this.marker_view.marker);
+  hide_rime_info : function() {
+    this.marker_view.hide_crime_info.call(this.marker_view.marker);
   },
 
   // clicked on "delete". show confirm button.
-  ask_delete_company : function() {
+  ask_delete_crime : function() {
     $('button', this.$el).hide();
     $('a.delete', this.$el).fadeIn();
   },
 
-  delete_company : function() {
+  delete_crime : function() {
     this.model.clear();
   },
 
@@ -51,7 +51,7 @@ var CompanyListItemView = Backbone.View.extend({
   //----------------------------------
 
   render: function() {
-    this.$el.html('<li><a class="detail" href="#" company_id="' + this.model.get('company_id') + '">' + this.model.get('name') + '</a> <button class="close">×</button> <a href="#" style="display:none" class="close delete">confirm</a></li>');
+    this.$el.html('<li><a class="detail" href="#" crime_id="' + this.model.get('crime_id') + '">' + this.model.get('name') + '</a> <button class="close">×</button> <a href="#" style="display:none" class="close delete">confirm</a></li>');
     return this;
   },
 

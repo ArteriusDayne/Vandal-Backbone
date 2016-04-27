@@ -1,6 +1,6 @@
 
 // global for the sake of this example
-var Companies = new CompanyList();
+var Crimes = new CrimeList();
 var App = null;
 
 /**
@@ -26,7 +26,7 @@ var AppView = Backbone.View.extend({
             self.main.fadeIn();
         });
 
-        self.companies_holder.fadeOut();
+        self.crimes_holder.fadeOut();
 
         // controls to switch back to map
         self.controls.hide().css({top: (top - 100) + 'px'});
@@ -47,7 +47,7 @@ var AppView = Backbone.View.extend({
         // hide controls
         self.controls.hide();
 
-        self.companies_holder.fadeIn();
+        self.crimes_holder.fadeIn();
 
         // resize map canvas. make map 100%
         self.map_canvas.animate({height: '100%'}, speed);
@@ -116,7 +116,7 @@ var AppView = Backbone.View.extend({
         self.map_controls = $('#map_controls');
         self.map_canvas = $('#map_canvas');
         self.header = $('header');
-        self.companies_holder = $('#companies_holder');
+        self.crimes_holder = $('#crimes_holder');
 
         // initialize map
         self._initialize_map();
@@ -138,7 +138,7 @@ var AppView = Backbone.View.extend({
         setTimeout(function () { // fetch data with some delay
             Companies.fetch();
             // create views
-            var list_view = new CompanyListView({model: Companies, map: self.map});
+            var list_view = new CrimeListView({model: Crimes, map: self.map});
         }, 2000);
     }
 });

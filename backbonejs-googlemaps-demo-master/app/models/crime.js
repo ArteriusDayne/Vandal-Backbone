@@ -1,9 +1,9 @@
 
 /**
- * Company Model
+ * Crime Model
  */
 
-var Company = Backbone.Model.extend({
+var Crime = Backbone.Model.extend({
 
   initialize: function() {},
 
