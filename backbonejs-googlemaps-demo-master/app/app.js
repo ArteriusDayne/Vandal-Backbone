@@ -136,7 +136,7 @@ var AppView = Backbone.View.extend({
         }, 1000);
 
         setTimeout(function () { // fetch data with some delay
-            Companies.fetch();
+            Crimes.fetch();
             // create views
             var list_view = new CrimeListView({model: Crimes, map: self.map});
         }, 2000);

@@ -27,7 +27,7 @@
         <!-- JQuery Stuff -->
         <script src="app/vendor/jquery-1.7.1.js"></script>
         <script src="app/vendor/jquery.mobile-1.4.5.min.js"></script>
-        <script src="app/vendor/jquery-ui.min.js"></script>
+        <script src="app/vendor/jquery-ui.min.js"></script>`
 
         <!-- Font Awesome + Native Droid 2 -->
         <script src="app/font-awesome/fontawesome-markers.min.js"></script>
@@ -35,6 +35,170 @@
         <script src="app/vendor/wow/wow.min.js"></script>
         <script src="app/vendor/nativedroid2.js"></script>
         <script src="app/nd2settings.js"></script>
+
+        <script>
+            // Note: This example requires that you consent to location sharing when
+            // prompted by your browser. If you see the error "The Geolocation service
+            // failed.", it means you probably did not give permission for the browser to
+            // locate you.
+            var myLatLng = {lat: 40.742, lng: -74.179}
+            var crime1 = {lat: 40.744, lng: -74.177}
+            var crime2 = {lat: 40.742, lng: -74.182}
+            var crime3 = {lat: 40.739, lng: -74.1783}
+            var crime4 = {lat: 40.745, lng: -74.1783}
+
+            var marker1;
+            var marker2;
+            var marker3;
+            var marker4;
+
+            function initAutocomplete() {
+                var map = new google.maps.Map(document.getElementById("googleMap"), {
+                    center: myLatLng,
+                    zoom: 17,
+                    tilt: 30,
+                    mapTypeID: google.maps.MapTypeId.HYBRID
+                });
+
+                var contentString1 = '<div id="content">' +
+                        '<div id="crimeinfo1">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading">Driving Under the Influence</h1>' +
+                        '<div id="bodyContent">' +
+                        '<p><b>DUI</b>, at <b>Sussex Park.</b></p>' +
+                        '<p>Police have arrested a 36-year-old man in connection with a Thursday car crash that left several injured, officials said.</p>' +
+                        '<p>According to police, Juan Hernandez Jr. was one of two men occupying a vehicle that allegedly struck a NJ Transit bus ' +
+                        'and several other vehicles early Thursday morning, said Newark Police Department spokesman Capt. Derek Glenn in a released statement.</p>' +
+                        '</div>' +
+                        '</div>';
+
+                var contentString2 = '<div id="content">' +
+                        '<div id="crimeinfo2">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading">First Degree Murder</h1>' +
+                        '<div id="bodyContent">' +
+                        '<p><b>First Degree Murder</b>, at <b>Warren Street.</b></p>' +
+                        '<p>The latest victims in a string of three fatal shootings in Newark were found by authorities inside a car, according to police reports.</p>' +
+                        '<p>Newark Police Department officers made the grim discovery at approximately 8:30 p.m. after receiving reports of shots being fired near ' +
+                        'a residence in the 300 block of New Street, the reports state.</p>' +
+                        '</div>' +
+                        '</div>';
+
+                var contentString3 = '<div id="content">' +
+                        '<div id="crimeinfo3">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading">Sexual Assault</h1>' +
+                        '<div id="bodyContent">' +
+                        '<p><b>Sexual Assualt</b>, at <b>Dr. Martin Luther King JR Blvd.</b></p>' +
+                        '<p>Authorities are investigating allegations that a Newark firefighter sexually assaulted a woman inside a downtown firehouse, NJ Advance Media has learned.</p>' +
+                        '<p>A source familiar with the probe told NJ Advance Media the Essex County Prosecutors Office initiated its investigation after the alleged Wednesday incident.</p>' +
+                        '</div>' +
+                        '</div>';
+                var contentString4 = '<div id="content">' +
+                        '<div id="crimeinfo4">' +
+                        '</div>' +
+                        '<h1 id="firstHeading" class="firstHeading">Vandalism</h1>' +
+                        '<div id="bodyContent">' +
+                        '<p><b>Vandalism</b>at NESBITT ST., NEWARK, NJ</b></p>' +
+                        '<p> male victim lost wallet and other belongings to pickpocketing Caucasian male teenager .</p>' +
+                        '<p>perpetrator fled the scene but was quickly caught by passing Good Samaritan before police arrival.</p>' +
+                        '</div>' +
+                        '</div>';
+
+                var infowindow1 = new google.maps.InfoWindow({
+                    content: contentString1
+                });
+
+                var infowindow2 = new google.maps.InfoWindow({
+                    content: contentString2
+                });
+
+                var infowindow3 = new google.maps.InfoWindow({
+                    content: contentString3
+                });
+                var infowindow4 = new google.maps.InfoWindow({
+                    content: contentString4
+                });
+
+                marker1 = new google.maps.Marker({
+                    position: crime1,
+                    icon: {
+                        path: fontawesome.markers.WARNING,
+                        scale: 0.4,
+                        strokeWeight: 0.2,
+                        strokeColor: 'black',
+                        strokeOpacity: 1,
+                        fillColor: 'orange',
+                        fillOpacity: 0.7
+                    },
+                    title: 'intermediate crime',
+                    map: map,
+                });
+
+                marker2 = new google.maps.Marker({
+                    position: crime2,
+                    icon: {
+                        path: fontawesome.markers.BULLSEYE,
+                        scale: 0.4,
+                        strokeWeight: 0.2,
+                        strokeColor: 'black',
+                        strokeOpacity: 1,
+                        fillColor: 'red',
+                        fillOpacity: 0.7
+                    },
+                    title: 'major crime',
+                    map: map,
+                });
+
+                marker3 = new google.maps.Marker({
+                    position: crime3,
+                    icon: {
+                        path: fontawesome.markers.WARNING,
+                        scale: 0.4,
+                        strokeWeight: 0.2,
+                        strokeColor: 'black',
+                        strokeOpacity: 1,
+                        fillColor: 'orange',
+                        fillOpacity: 0.7
+                    },
+                    title: 'intermediate crime',
+                    map: map,
+                });
+
+                marker4 = new google.maps.Marker({
+                    position: crime4,
+                    icon: {
+                        path: fontawesome.markers.EYE,
+                        scale: 0.4,
+                        strokeWeight: 0.2,
+                        strokeColor: 'BLACK',
+                        strokeOpacity: 1,
+                        fillColor: 'yellow',
+                        fillOpacity: 0.7
+                    },
+                    title: 'minor crime',
+                    map: map,
+                });
+                marker1.addListener('click', function () {
+                    infowindow1.open(map, marker1);
+                });
+
+                marker2.addListener('click', function () {
+                    infowindow2.open(map, marker2);
+                });
+
+                marker3.addListener('click', function () {
+                    infowindow3.open(map, marker3);
+                });
+                marker4.addListener('click', function () {
+                    infowindow4.open(map, marker4);
+                });
+
+
+            }
+
+        </script>
+
     </head>
 
     <body>
@@ -103,68 +267,106 @@
         <!-- Left Panel -->
         <div data-role="panel" id="leftpanel" data-display="overlay" data-position-fixed="true" >
 
-            <div class='nd2-sidepanel-profile wow fadeInDown'>
-                <img class='profile-background' src="img/bgblue.jpg" />
-                <div class="row">
-                    <div class='col-xs-4 center-xs'>
-                        <div class='box'>
-                            <img class="profile-thumbnail" src="img/defaultprofile.jpg" />
+                <div class='nd2-sidepanel-profile wow fadeInDown'>
+                    <img class='profile-background' src="img/bgblue.jpg" />
+                    <div class="row">
+                        <div class='col-xs-4 center-xs'>
+                            <div class='box'>
+                                <img class="profile-thumbnail" src="img/defaultprofile.jpg" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class='col-xs-8'>
-                        <div class='box profile-text'>
-                            <strong>Bot Yuenthon</strong>
-                            <span class='subline'>byuenthon@taudelt.org</span>
+                        <div class='col-xs-8'>
+                            <div class='box profile-text'>
+                                <strong>Bot Yuenthon</strong>
+                                <span class='subline'>byuenthon@taudelt.org</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
-            <ul data-role="listview" data-inset="false">
-                <li data-role="list-divider">Settings Menu</li>
-            </ul>
-
-            <div data-role="collapsible" data-inset="false"  data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
-                <h3>Customize Map</h3>
-                <ul data-role="listview" data-inset="false" data-icon="false">
-                    <li><a href="highlightcrime.html" data-ajax='false' data-icon="false">Choose Crime to Highlight</a></li>
-                    <li><a href="/examples/elements/grid.html" data-ajax='false' data-icon="false">Customize Crime Marker Colors</a></li>
-                    <li><a href="/examples/elements/buttons.html" data-ajax='false' data-icon="false">Change Home Address</a></li>
-                    <li><a href="/examples/elements/header_footer.html" data-ajax='false'>Change Work & School Address</a></li>
-                    <li><a href="/examples/elements/listviews.html" data-ajax='false'>Edit Alerts</a></li>
+              <ul data-role="listview" data-inset="false">
+                    <li data-role="list-divider">Settings Menu</li>
                 </ul>
-            </div>
 
-            <div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
-                <h3>App Settings</h3>
-                <ul data-role="listview" data-icon="false">
-                    <li><a href="/examples/extended/tabs.html" data-ajax='false'>Change Notification Settings</a></li>
-                    <li><a href="/examples/extended/cards.html" data-ajax='false'>Change Settings</a></li>
-                    <li><a href="/examples/extended/search.html" data-ajax='false'>Change Settings</a></li>
-                    <li><a href="/examples/extended/icons.html" data-ajax='false'>Change Settings</a></li>
-                    <li><a href="/examples/extended/charts.html" data-ajax='false'>Change Settings</a></li>
-                    <li><a href="/examples/extended/toasts.html" data-ajax='false'>Change Settings</a></li>
-                </ul>
-            </div>
+                <div data-role="collapsible" data-inset="false"  data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
+                   
+                    <h3>Customize Map</h3>
+                    <ul data-role="listview" data-inset="false" data-icon="false">
+                        <li><a href="highlightcrime.html" data-ajax='false' data-icon="false">Choose Crime to Highlight</a></li>
+                            <ul data-role="listview" data-icon="false">
+                                <input type="checkbox" name="checkbox-choice-1" id="checkbox-choice-1b" value="A" checked="checked">
+                                <label for="checkbox-choice-1b">minor crimes</label>
+                                <input type="checkbox" name="checkbox-choice-2" id="checkbox-choice-2b" value="B" checked="checked">
+                                <label for="checkbox-choice-2b">intermediate crimes</label>
+                                <input type="checkbox" name="checkbox-choice-3" id="checkbox-choice-3b" value="C" checked="checked" >
+                                <label for="checkbox-choice-3b">major crimes</label>
+                            </ul>  
+                    </ul>
+                    
 
-            <hr class="inset">
-            <ul data-role="listview" data-inset="false">
-                <li data-role="list-divider">Information</li>
-            </ul>
+        
+                     <script type="text/javascript">
+                        $("#checkbox-choice-1b").change(function () {
+                            
+                            
+                            if ($("#checkbox-choice-1b").attr("checked")) {
+                                $("#checkbox-choice-1b").attr("checked", false);
+                                marker4.setVisible(false);
+                            } else {
+                                $("#checkbox-choice-1b").attr("checked", true);
+                                marker4.setVisible(true);
+                            }
+                        });
 
-            <div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
-                <h3>Account Information</h3>
-                <ul data-role="listview" data-icon="false">
-                    <li><a href="/info/colors_and_styles.html" data-ajax='false'>Profile</a></li>
-                    <li><a href="/info/colors_and_styles.html" data-ajax='false'>Change Email</a></li>
-                    <li><a href="/info/colors_and_styles.html" data-ajax='false'>Contact Support</a></li>
-                    <li><a href="/info/credits.html" data-ajax='false'>Logout</a></li>
-                </ul>
-            </div>
+                        $("#checkbox-choice-2b").change(function () {
+                            marker1.setVisible(true);
+                            marker2.setVisible(true);
+                            marker3.setVisible(true);
+                            
+                            if ($("#checkbox-choice-2b").attr("checked")) {
+                                $("#checkbox-choice-2b").attr("checked", false);
+                                marker1.setVisible(false);
+                                marker3.setVisible(false);
+                            } else {
+                                $("#checkbox-choice-2b").attr("checked", true);
+                                marker1.setVisible(true);
+                                marker3.setVisible(true);
+                            }
+                        });
 
-        </div>  
+                        $("#checkbox-choice-3b").change(function () {
+                            
+                            if ($("#checkbox-choice-3b").attr("checked")) {
+                                $("#checkbox-choice-3b").attr("checked", false);
+                                marker2.setVisible(false);
+                            } else {
+                                $("#checkbox-choice-3b").attr("checked", true);
+                                marker2.setVisible(true);
+                            }
+                        });
+                       
+                    </script>
+                </div>
+                
+
+                <div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
+                    <h3>Account Information</h3>
+                    <ul data-role="listview" data-icon="false">
+                        <li><a href="/info/colors_and_styles.html" data-ajax='false'>Profile</a></li>
+                        <form action="">
+                            <input type="text" maxlength="10" placeholder="cooldude69">
+                        <li><a href="/info/colors_and_styles.html" data-ajax='false'>Change Email</a></li>
+                        <form action="">
+                            <input type="text" maxlength="10" placeholder="example@gmail.com">
+                        <li><a href="/info/colors_and_styles.html" data-ajax='false'>Contact Support</a></li>
+                        <form action="">
+                            <input type="text" maxlength="10" placeholder="182 Warren Street, Newark NJ">
+                    </ul>
+                </div>
+
+            </div>   
         <!-- Left Panel -->
 
         <!--
@@ -206,7 +408,7 @@
 
                 <div class="span8">
 
-                    <div id="company_details_holder">
+                    <div id="crime_details_holder">
 
                         <h2>Content here</h2>
                         <form class="form-horizontal well">
@@ -295,7 +497,7 @@
                                     <button type="reset" class="btn">Cancel</button>
                                 </div>
                             </fieldset>
-                        </form>
+                        
                     </div>
                 </div>
         </section>

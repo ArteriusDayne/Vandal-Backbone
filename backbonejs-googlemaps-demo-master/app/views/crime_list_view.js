@@ -40,7 +40,7 @@ var CrimeListView = Backbone.View.extend({
     },
 
     // event handler for "delete all companies" action
-    delete_all_crimes: function() {
+    delete_all_crime: function() {
       Crimes.remove_all();
     },
 

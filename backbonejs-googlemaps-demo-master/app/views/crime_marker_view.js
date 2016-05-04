@@ -23,7 +23,7 @@ var CrimeMarkerView = Backbone.View.extend({
           map: self.map,
           position: new google.maps.LatLng(pos.lat, pos.lon),
           animation: google.maps.Animation.DROP,
-          icon : 'img/buildings_32x32.png',
+          icon : 'img/crime.png',
           title: self.model.name,
           descr : self.model.get('descr'),
           id : self.model.get('crime_id')
@@ -47,12 +47,12 @@ var CrimeMarkerView = Backbone.View.extend({
     },
 
     hide_crime_info : function() {
-      this.setIcon('img/buildings_32x32.png');
+      this.setIcon('img/crime.png');
       this.infowindow.close();
     },
 
     show_crime_info : function() {
-      this.setIcon('img/buildings_32x32_selected.png');
+      this.setIcon('img/crime.png');
       this.infowindow.open(this.map, this);
     },
 
