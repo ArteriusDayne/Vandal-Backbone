@@ -16,7 +16,27 @@ var AppView = Backbone.View.extend({
         'click #btn_content': 'show_content',
         'click #btn_map': 'show_map'
     },
-    
+    show_content: function () { //triggers "content" mode
+        var self = this;
+        var top = 200;
+        var speed = 600;
+
+        // set content position and fade in
+        self.main.animate({top: (top) + 'px'}, speed, function () {
+            self.main.fadeIn();
+        });
+
+        self.crimes_holder.fadeOut();
+
+        // controls to switch back to map
+        self.controls.hide().css({top: (top - 100) + 'px'});
+        setTimeout(function () {
+            self.content_controls.fadeIn();
+        }, 2 * speed);
+
+        // resize map canvas
+        self.map_canvas.animate({height: (top) + 'px'}, speed);
+    },
     show_map: function () { // triggers "map" mode
         var self = this;
         var speed = 800;

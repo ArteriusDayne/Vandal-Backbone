@@ -163,10 +163,10 @@ var Faker = {};
                 };
         Faker.Company = {};
         Faker.Company.companyName = function (format) {
-        switch ((format ? format : Helpers.randomNumber(3)))
+        switch ((format ? format : Helpers.randomNumber(0)))
         {
         case 0:
-                return Helpers.randomize(definitions.last_name()) + " " + this.companySuffix();
+                return this.companySuffix();
                 break;
                 case 1:
                 return Helpers.randomize(definitions.last_name()) + "-" + Helpers.randomize(definitions.last_name());
@@ -177,7 +177,7 @@ var Faker = {};
         }
         };
         Faker.Company.companySuffix = function () {
-        return Helpers.randomize(["Inc", "and\ Sons", "LLC", "Group", "and\ Daughters"]);
+        return Helpers.randomize(["Robbery", "Shooting", "Murder", "DUI", "Vandalism", "Sexual Assault", "Breaking & Entering", "Destruction of Property"]);
                 };
         Faker.Company.catchPhrase = function () {
         return Helpers.randomize(definitions.catch_phrase_adjective()) + " " + Helpers.randomize(definitions.catch_phrase_descriptor()) + " " + Helpers.randomize(definitions.catch_phrase_noun());
