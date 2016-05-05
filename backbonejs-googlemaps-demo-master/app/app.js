@@ -16,27 +16,7 @@ var AppView = Backbone.View.extend({
         'click #btn_content': 'show_content',
         'click #btn_map': 'show_map'
     },
-    show_content: function () { //triggers "content" mode
-        var self = this;
-        var top = 200;
-        var speed = 600;
-
-        // set content position and fade in
-        self.main.animate({top: (top) + 'px'}, speed, function () {
-            self.main.fadeIn();
-        });
-
-        self.crimes_holder.fadeOut();
-
-        // controls to switch back to map
-        self.controls.hide().css({top: (top - 100) + 'px'});
-        setTimeout(function () {
-            self.content_controls.fadeIn();
-        }, 2 * speed);
-
-        // resize map canvas
-        self.map_canvas.animate({height: (top) + 'px'}, speed);
-    },
+    
     show_map: function () { // triggers "map" mode
         var self = this;
         var speed = 800;
@@ -66,7 +46,6 @@ var AppView = Backbone.View.extend({
     // Initialise map
     //--------------------------------------
     _initialize_map: function () {
-        var Geomarker;
         var center = new google.maps.LatLng(40.742, -74.179);
         var styles = [
             {
@@ -88,18 +67,6 @@ var AppView = Backbone.View.extend({
 
         this.map = new google.maps.Map(document.getElementById('map_canvas'),
                 mapOptions);
-
-        GeoMarker = new GeolocationMarker();
-        GeoMarker.setCircleOptions({fillColor: '#808080'});
-
-        google.maps.event.addListenerOnce(GeoMarker, 'position_changed', function () {
-            map.setCenter(this.getPosition());
-            map.fitBounds(this.getBounds());
-        });
-
-        google.maps.event.addListener(GeoMarker, 'geolocation_error', function (e) {
-            alert('There was an error obtaining your position. Message: ' + e.message);
-        });
 
     },
     //--------------------------------------

@@ -22,12 +22,12 @@
         <link rel="stylesheet" href="css/nativedroid2.color.light-blue.css" />
 
         <!-- Google Maps API -->
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS2gksPITHAt3T1zso_Z5xm_KE_W46I5E"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS2gksPITHAt3T1zso_Z5xm_KE_W46I5E&libraries=places"></script>
 
         <!-- JQuery Stuff -->
-        <script src="app/vendor/jquery-1.7.1.js"></script>
+        <script src="app/vendor/jquery-2.1.4.min.js"></script>
         <script src="app/vendor/jquery.mobile-1.4.5.min.js"></script>
-        <script src="app/vendor/jquery-ui.min.js"></script>`
+        <script src="app/vendor/jquery-ui.min.js"></script>
 
         <!-- Font Awesome + Native Droid 2 -->
         <script src="app/font-awesome/fontawesome-markers.min.js"></script>
@@ -210,6 +210,92 @@
             <h1 class="wow fadeIn" data-wow-delay='0.4s'>Vandal</h1>
         </div>
 
+        <<script type="text/javascript">
+
+            new $.nd2Search({
+                id: "autocomplete",
+                placeholder: "Input Placeholder", // Placeholder in the search field
+                defaultIcon: "globe-alt", // optional: icon | null
+                source: [{label: 'Displayed Value', value: 'real-value', icon: 'custom-icon'}], // autocomplete : option-source
+                fn: function (result) { // this function will be executed when a valid result item is selected
+                    console.log('--- Your custom handling ---');
+                    console.log('you picked: ');
+                    console.log(result);
+                }
+            });
+
+
+        </script>
+
+        <script>
+            // This example displays an address form, using the autocomplete feature
+            // of the Google Places API to help users fill in the information.
+
+            // This example requires the Places library. Include the libraries=places
+            // parameter when you first load the API. For example:
+            // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+            var placeSearch, autocomplete;
+            var componentForm = {
+                street_number: 'short_name',
+                route: 'long_name',
+                locality: 'long_name',
+                administrative_area_level_1: 'short_name',
+                country: 'long_name',
+                postal_code: 'short_name'
+            };
+
+            function initAutocomplete() {
+                // Create the autocomplete object, restricting the search to geographical
+                // location types.
+                autocomplete = new google.maps.places.Autocomplete(
+                        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+                        {types: ['geocode']});
+
+                // When the user selects an address from the dropdown, populate the address
+                // fields in the form.
+                autocomplete.addListener('place_changed', fillInAddress);
+            }
+
+            function fillInAddress() {
+                // Get the place details from the autocomplete object.
+                var place = autocomplete.getPlace();
+
+                for (var component in componentForm) {
+                    document.getElementById(component).value = '';
+                    document.getElementById(component).disabled = false;
+                }
+
+                // Get each component of the address from the place details
+                // and fill the corresponding field on the form.
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var addressType = place.address_components[i].types[0];
+                    if (componentForm[addressType]) {
+                        var val = place.address_components[i][componentForm[addressType]];
+                        document.getElementById(addressType).value = val;
+                    }
+                }
+            }
+
+            // Bias the autocomplete object to the user's geographical location,
+            // as supplied by the browser's 'navigator.geolocation' object.
+            function geolocate() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var geolocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        var circle = new google.maps.Circle({
+                            center: geolocation,
+                            radius: position.coords.accuracy
+                        });
+                        autocomplete.setBounds(circle.getBounds());
+                    });
+                }
+            }
+        </script>
+
         <!-- Right Panel -->
 
         <div data-role="popup" id="popupDialog">
@@ -267,259 +353,259 @@
         <!-- Left Panel -->
         <div data-role="panel" id="leftpanel" data-display="overlay" data-position-fixed="true" >
 
-                <div class='nd2-sidepanel-profile wow fadeInDown'>
-                    <img class='profile-background' src="img/bgblue.jpg" />
-                    <div class="row">
-                        <div class='col-xs-4 center-xs'>
-                            <div class='box'>
-                                <img class="profile-thumbnail" src="img/defaultprofile.jpg" />
-                            </div>
+            <div class='nd2-sidepanel-profile wow fadeInDown'>
+                <img class='profile-background' src="img/bgblue.jpg" />
+                <div class="row">
+                    <div class='col-xs-4 center-xs'>
+                        <div class='box'>
+                            <img class="profile-thumbnail" src="img/defaultprofile.jpg" />
                         </div>
+                    </div>
 
-                        <div class='col-xs-8'>
-                            <div class='box profile-text'>
-                                <strong>Bot Yuenthon</strong>
-                                <span class='subline'>byuenthon@taudelt.org</span>
-                            </div>
+                    <div class='col-xs-8'>
+                        <div class='box profile-text'>
+                            <strong>Bot Yuenthon</strong>
+                            <span class='subline'>byuenthon@taudelt.org</span>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-              <ul data-role="listview" data-inset="false">
-                    <li data-role="list-divider">Settings Menu</li>
+            <ul data-role="listview" data-inset="false">
+                <li data-role="list-divider">Settings Menu</li>
+            </ul>
+
+            <div data-role="collapsible" data-inset="false"  data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
+
+                <h3>Customize Map</h3>
+                <ul data-role="listview" data-inset="false" data-icon="false">
+                    <li><a href="highlightcrime.html" data-ajax='false' data-icon="false">Choose Crime to Highlight</a></li>
+                    <ul data-role="listview" data-icon="false">
+                        <input type="checkbox" name="checkbox-choice-1" id="checkbox-choice-1b" value="A" checked="checked">
+                        <label for="checkbox-choice-1b">minor crimes</label>
+                        <input type="checkbox" name="checkbox-choice-2" id="checkbox-choice-2b" value="B" checked="checked">
+                        <label for="checkbox-choice-2b">intermediate crimes</label>
+                        <input type="checkbox" name="checkbox-choice-3" id="checkbox-choice-3b" value="C" checked="checked" >
+                        <label for="checkbox-choice-3b">major crimes</label>
+                    </ul>  
                 </ul>
 
-                <div data-role="collapsible" data-inset="false"  data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
-                   
-                    <h3>Customize Map</h3>
-                    <ul data-role="listview" data-inset="false" data-icon="false">
-                        <li><a href="highlightcrime.html" data-ajax='false' data-icon="false">Choose Crime to Highlight</a></li>
-                            <ul data-role="listview" data-icon="false">
-                                <input type="checkbox" name="checkbox-choice-1" id="checkbox-choice-1b" value="A" checked="checked">
-                                <label for="checkbox-choice-1b">minor crimes</label>
-                                <input type="checkbox" name="checkbox-choice-2" id="checkbox-choice-2b" value="B" checked="checked">
-                                <label for="checkbox-choice-2b">intermediate crimes</label>
-                                <input type="checkbox" name="checkbox-choice-3" id="checkbox-choice-3b" value="C" checked="checked" >
-                                <label for="checkbox-choice-3b">major crimes</label>
-                            </ul>  
-                    </ul>
-                    
 
-        
-                     <script type="text/javascript">
-                        $("#checkbox-choice-1b").change(function () {
-                            
-                            
-                            if ($("#checkbox-choice-1b").attr("checked")) {
-                                $("#checkbox-choice-1b").attr("checked", false);
-                                marker4.setVisible(false);
-                            } else {
-                                $("#checkbox-choice-1b").attr("checked", true);
-                                marker4.setVisible(true);
-                            }
-                        });
 
-                        $("#checkbox-choice-2b").change(function () {
+                <script type="text/javascript">
+                    $("#checkbox-choice-1b").change(function () {
+
+
+                        if ($("#checkbox-choice-1b").attr("checked")) {
+                            $("#checkbox-choice-1b").attr("checked", false);
+                            marker4.setVisible(false);
+                        } else {
+                            $("#checkbox-choice-1b").attr("checked", true);
+                            marker4.setVisible(true);
+                        }
+                    });
+
+                    $("#checkbox-choice-2b").change(function () {
+                        marker1.setVisible(true);
+                        marker2.setVisible(true);
+                        marker3.setVisible(true);
+
+                        if ($("#checkbox-choice-2b").attr("checked")) {
+                            $("#checkbox-choice-2b").attr("checked", false);
+                            marker1.setVisible(false);
+                            marker3.setVisible(false);
+                        } else {
+                            $("#checkbox-choice-2b").attr("checked", true);
                             marker1.setVisible(true);
-                            marker2.setVisible(true);
                             marker3.setVisible(true);
-                            
-                            if ($("#checkbox-choice-2b").attr("checked")) {
-                                $("#checkbox-choice-2b").attr("checked", false);
-                                marker1.setVisible(false);
-                                marker3.setVisible(false);
-                            } else {
-                                $("#checkbox-choice-2b").attr("checked", true);
-                                marker1.setVisible(true);
-                                marker3.setVisible(true);
-                            }
-                        });
+                        }
+                    });
 
-                        $("#checkbox-choice-3b").change(function () {
-                            
-                            if ($("#checkbox-choice-3b").attr("checked")) {
-                                $("#checkbox-choice-3b").attr("checked", false);
-                                marker2.setVisible(false);
-                            } else {
-                                $("#checkbox-choice-3b").attr("checked", true);
-                                marker2.setVisible(true);
-                            }
-                        });
-                       
-                    </script>
-                </div>
-                
+                    $("#checkbox-choice-3b").change(function () {
 
-                <div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
-                    <h3>Account Information</h3>
-                    <ul data-role="listview" data-icon="false">
-                        <li><a href="/info/colors_and_styles.html" data-ajax='false'>Profile</a></li>
-                        <form action="">
-                            <input type="text" maxlength="10" placeholder="cooldude69">
+                        if ($("#checkbox-choice-3b").attr("checked")) {
+                            $("#checkbox-choice-3b").attr("checked", false);
+                            marker2.setVisible(false);
+                        } else {
+                            $("#checkbox-choice-3b").attr("checked", true);
+                            marker2.setVisible(true);
+                        }
+                    });
+
+                </script>
+            </div>
+
+
+            <div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-d" data-iconpos="right">
+                <h3>Account Information</h3>
+                <ul data-role="listview" data-icon="false">
+                    <li><a href="/info/colors_and_styles.html" data-ajax='false'>Profile</a></li>
+                    <form action="">
+                        <input type="text" maxlength="10" placeholder="cooldude69">
                         <li><a href="/info/colors_and_styles.html" data-ajax='false'>Change Email</a></li>
                         <form action="">
                             <input type="text" maxlength="10" placeholder="example@gmail.com">
-                        <li><a href="/info/colors_and_styles.html" data-ajax='false'>Contact Support</a></li>
-                        <form action="">
-                            <input type="text" maxlength="10" placeholder="182 Warren Street, Newark NJ">
-                    </ul>
-                </div>
+                            <li><a href="/info/colors_and_styles.html" data-ajax='false'>Contact Support</a></li>
+                            <form action="">
+                                <input type="text" maxlength="10" placeholder="182 Warren Street, Newark NJ">
+                                </ul>
+                                </div>
 
-            </div>   
-        <!-- Left Panel -->
+                                </div>   
+                                <!-- Left Panel -->
 
-        <!--
-        <div id="hub" class="">
-            <div class="nav_controls" id="map_controls">
-                <button id="btn_content" class="btn btn-large btn-warning">Show content</button>
-            </div>
-
-            <div id="crimes_holder">
-                <button id="btn_pop_new_crime" class="btn"><i class="icon-plus"></i> New Crime</button>
-                <button id="btn_delete_all_crime" class="btn btn-danger"><i class="icon-remove icon-white"></i> Remove them all</button>
-
-                <div id="crimes_list_holder"><ul></ul></div>
-            </div>
-
-            <div class="nav_controls" id="content_controls">
-                <button id="btn_map" class="btn btn-large btn-warning">Show map</button>
-            </div>
-
-        </div> -->
-
-
-        <!-- Pop-up Menu Forms -->
-        <section id="main">
-            <div class=row-fluid>
-                <div class="span4">
-                    <h2>Lorem ipsum y más lorem (ole!)</h2>
-                    <div class="alert alert-block">
-                        <a class="close">×</a>
-                        <h4 class="alert-heading">Demo</h4>
-                        <p>Really simple demo of how to use Backbone.js and Google Maps with a few simple interactions.</p>
-                    </div>
-
-                    <ul>
-                        <li>Markers are randomly generated and persist in localstorage.</li>
-                        <li>Hybrid interface inspiration from: <a href="http://www.endangeredlanguages.com/" target="_blank" title="endangeredlanguages">endangeredlanguages</a> and <a href="http://www.metroroto.com/" target="_blank" title="metroroto">http://www.metroroto.com/</a>.</li>
-                    </ul>
-                </div>
-
-                <div class="span8">
-
-                    <div id="crime_details_holder">
-
-                        <h2>Content here</h2>
-                        <form class="form-horizontal well">
-                            <fieldset>
-                                <legend>New form</legend>
-                                <div class="control-group">
-                                    <label class="control-label" for="input01">Text input</label>
-                                    <div class="controls">
-                                        <input type="text" class="input-xlarge" id="input01">
-                                        <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+                                <!--
+                                <div id="hub" class="">
+                                    <div class="nav_controls" id="map_controls">
+                                        <button id="btn_content" class="btn btn-large btn-warning">Show content</button>
                                     </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="optionsCheckbox">Checkbox</label>
-                                    <div class="controls">
-                                        <label class="checkbox">
-                                            <input type="checkbox" id="optionsCheckbox" value="option1">
-                                            Option one is this and that—be sure to include why it's great
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="select01">Select list</label>
-                                    <div class="controls">
-                                        <select id="select01">
-                                            <option>something</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="multiSelect">Multicon-select</label>
-                                    <div class="controls">
-                                        <select multiple="multiple" id="multiSelect">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="fileInput">File input</label>
-                                    <div class="controls">
-                                        <input class="input-file" id="fileInput" type="file">
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="textarea">Textarea</label>
-                                    <div class="controls">
-                                        <textarea class="input-xlarge" id="textarea" rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label" for="focusedInput">Focused input</label>
-                                    <div class="controls">
-                                        <input class="input-xlarge focused" id="focusedInput" type="text" value="This is focused…">
-                                    </div>
-                                </div>
-                                <div class="control-group success">
-                                    <label class="control-label" for="inputSuccess">Input with success</label>
-                                    <div class="controls">
-                                        <input type="text" id="inputSuccess">
-                                        <span class="help-inline">Woohoo!</span>
-                                    </div>
-                                </div>
-                                <div class="control-group success">
-                                    <label class="control-label" for="selectError">Select with success</label>
-                                    <div class="controls">
-                                        <select id="selectError">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </select>
-                                        <span class="help-inline">Woohoo!</span>
-                                    </div>
-                                </div>
-                                <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                    <button type="reset" class="btn">Cancel</button>
-                                </div>
-                            </fieldset>
                         
-                    </div>
-                </div>
-        </section>
+                                    <div id="crimes_holder">
+                                        <button id="btn_pop_new_crime" class="btn"><i class="icon-plus"></i> New Crime</button>
+                                        <button id="btn_delete_all_crime" class="btn btn-danger"><i class="icon-remove icon-white"></i> Remove them all</button>
+                        
+                                        <div id="crimes_list_holder"><ul></ul></div>
+                                    </div>
+                        
+                                    <div class="nav_controls" id="content_controls">
+                                        <button id="btn_map" class="btn btn-large btn-warning">Show map</button>
+                                    </div>
+                        
+                                </div> -->
 
-        <div id="map_canvas" style="position:absolute;top:0px;bottom:0px;left:0;right:0;" >map div</div>
 
-        <!-- Vender Libraries -->
-        <script src="app/vendor/underscore.js"></script>
-        <script src="app/vendor/backbone.js"></script>
-        <script src="app/vendor/backbone-localstorage.js"></script>
-        <script src="app/vendor/Faker.js"></script>
-        <script src="app/vendor/geolocationmarker-compiled.js"></script>
+                                <!-- Pop-up Menu Forms -->
+                                <section id="main">
+                                    <div class=row-fluid>
+                                        <div class="span4">
+                                            <h2>Lorem ipsum y más lorem (ole!)</h2>
+                                            <div class="alert alert-block">
+                                                <a class="close">×</a>
+                                                <h4 class="alert-heading">Demo</h4>
+                                                <p>Really simple demo of how to use Backbone.js and Google Maps with a few simple interactions.</p>
+                                            </div>
 
-        <!-- App Libraries -->
-        <script src="app/models/crime.js"></script>
-        <script src="app/collections/crime.js"></script>
-        <script src="app/views/crime_list_item_view.js"></script>
-        <script src="app/views/crime_list_view.js"></script>
-        <script src="app/views/crime_marker_view.js"></script>
+                                            <ul>
+                                                <li>Markers are randomly generated and persist in localstorage.</li>
+                                                <li>Hybrid interface inspiration from: <a href="http://www.endangeredlanguages.com/" target="_blank" title="endangeredlanguages">endangeredlanguages</a> and <a href="http://www.metroroto.com/" target="_blank" title="metroroto">http://www.metroroto.com/</a>.</li>
+                                            </ul>
+                                        </div>
 
-        <script src="app/app.js"></script>
+                                        <div class="span8">
 
-        <script src="app/dummy_data_generator.js"></script>
-    </body>
-</html>
+                                            <div id="crime_details_holder">
+
+                                                <h2>Content here</h2>
+                                                <form class="form-horizontal well">
+                                                    <fieldset>
+                                                        <legend>New form</legend>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="input01">Text input</label>
+                                                            <div class="controls">
+                                                                <input type="text" class="input-xlarge" id="input01">
+                                                                <p class="help-block">In addition to freeform text, any HTML5 text-based input appears like so.</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="optionsCheckbox">Checkbox</label>
+                                                            <div class="controls">
+                                                                <label class="checkbox">
+                                                                    <input type="checkbox" id="optionsCheckbox" value="option1">
+                                                                    Option one is this and that—be sure to include why it's great
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="select01">Select list</label>
+                                                            <div class="controls">
+                                                                <select id="select01">
+                                                                    <option>something</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="multiSelect">Multicon-select</label>
+                                                            <div class="controls">
+                                                                <select multiple="multiple" id="multiSelect">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="fileInput">File input</label>
+                                                            <div class="controls">
+                                                                <input class="input-file" id="fileInput" type="file">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="textarea">Textarea</label>
+                                                            <div class="controls">
+                                                                <textarea class="input-xlarge" id="textarea" rows="3"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group">
+                                                            <label class="control-label" for="focusedInput">Focused input</label>
+                                                            <div class="controls">
+                                                                <input class="input-xlarge focused" id="focusedInput" type="text" value="This is focused…">
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group success">
+                                                            <label class="control-label" for="inputSuccess">Input with success</label>
+                                                            <div class="controls">
+                                                                <input type="text" id="inputSuccess">
+                                                                <span class="help-inline">Woohoo!</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="control-group success">
+                                                            <label class="control-label" for="selectError">Select with success</label>
+                                                            <div class="controls">
+                                                                <select id="selectError">
+                                                                    <option>1</option>
+                                                                    <option>2</option>
+                                                                    <option>3</option>
+                                                                    <option>4</option>
+                                                                    <option>5</option>
+                                                                </select>
+                                                                <span class="help-inline">Woohoo!</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                            <button type="reset" class="btn">Cancel</button>
+                                                        </div>
+                                                    </fieldset>
+
+                                            </div>
+                                        </div>
+                                </section>
+
+                                <div id="map_canvas" style="position:absolute;top:0px;bottom:0px;left:0;right:0;" >map div</div>
+
+                                <!-- Vender Libraries -->
+                                <script src="app/vendor/underscore.js"></script>
+                                <script src="app/vendor/backbone.js"></script>
+                                <script src="app/vendor/backbone-localstorage.js"></script>
+                                <script src="app/vendor/Faker.js"></script>
+                                <script src="app/vendor/geolocationmarker-compiled.js"></script>
+
+                                <!-- App Libraries -->
+                                <script src="app/models/crime.js"></script>
+                                <script src="app/collections/crime.js"></script>
+                                <script src="app/views/crime_list_item_view.js"></script>
+                                <script src="app/views/crime_list_view.js"></script>
+                                <script src="app/views/crime_marker_view.js"></script>
+
+                                <script src="app/app.js"></script>
+
+                                <script src="app/dummy_data_generator.js"></script>
+                                </body>
+                                </html>

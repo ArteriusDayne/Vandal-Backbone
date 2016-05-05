@@ -11,7 +11,7 @@ var dummy_data_generator = {
       crime_id : rnd_id,
       name : Faker.Company.companyName(),
       address: Faker.Address.streetAddress(),
-      pos: {lat: 40.742 + Math.random(), lon: -74.179 + Math.random()}
+      pos: {lat: 40.3 + Math.random(), lon: -74.5 + Math.random()}
     };
 
     crime.descr = '<div>'+
